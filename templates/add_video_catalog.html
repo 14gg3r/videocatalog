@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Добавить видео в каталог</h1>
+    <div class="form-group">
+        <form method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+    <a href="{% url 'video_catalog_list' %}" class="btn btn-primary">Список</a>
+{% endblock %}
