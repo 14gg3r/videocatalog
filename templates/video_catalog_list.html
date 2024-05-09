@@ -1,97 +1,94 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
-    <h1>Каталог видео</h1>
-    <a href="{% url 'add_video_catalog' %}" class="btn btn-primary">Добавить</a>
-    <a href="{% url 'export_to_excel' %}" class="btn btn-primary">Выгрузить excel</a>
-    <a href="{% url 'send_to_tg' %}" class="btn btn-primary">Отправить</a>
-    <table class="table table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th>№ каталога</th>
-            <th>Исполнитель</th>
-            <th>Название</th>
-            <th>Хронометраж</th>
-            <th>Тип</th>
-            <th>Режиссёр</th>
-            <th>Сценарист</th>
-            <th>Композитор</th>
-            <th>Год</th>
-            <th>Youtube</th>
-            <th>RuTube</th>
-            <th>Яндекс</th>
-            <th>VK</th>
-            <th>Дзен</th>
-            <th>UPC</th>
-            <th>Файл</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in video_catalogs %}
-            <tr>
-                <td>{{ item.catalog_number }}</td>
-                <td>{{ item.performer }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.duration }}</td>
-                <td>{{ item.video_type }}</td>
-                <td>{{ item.director }}</td>
-                <td>{{ item.screenwriter }}</td>
-                <td>{{ item.composer }}</td>
-                <td>{{ item.year }}</td>
-                <td>
-                    <a href="{{ item.youtube_link }}">Сылка</a>
-                    {% if item.youtube_link %}
-
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-                <td>
-                    {% if item.rutube_link %}
-                        <a href="{{ item.rutube_link }}">Сылка</a>
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-                <td>
-                    {% if item.yandex_link %}
-                        <a href="{{ item.yandex_link }}">Сылка</a>
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-                <td>
-                    {% if item.vk_link %}
-                        <a href="{{ item.vk_link }}">Сылка</a>
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-                <td>
-                    {% if item.zen_link %}
-                        <a href="{{ item.zen_link }}">Сылка</a>
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-                <td>
-                    {{ item.upc }}
-                </td>
-                <td>
-                    {% if item.files %}
-                        <a href="{{ item.files.url }}">Файл</a>
-                    {% else %}
-                        -
-                    {% endif %}
-
-                </td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="9">Нет данных.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% extends "base.html" %} {% load static %} {% block content %}
+<h1>Каталог видео</h1>
+<div class="container">
+  <div class="row row-cols-auto">
+    <div class="col">
+      <a href="{% url 'add_video_catalog' %}" class="btn btn-primary"
+        >Добавить</a
+      >
+    </div>
+    <div class="col">
+      <a href="{% url 'export_to_excel' %}" class="btn btn-primary"
+        >Выгрузить excel</a
+      >
+    </div>
+    <div class="col">
+      <a href="{% url 'send_to_tg' %}" class="btn btn-primary">Отправить</a>
+    </div>
+    <div class="col">
+      <a href="/admin" class="btn btn-primary">Редактировать</a>
+    </div>
+  </div>
+</div>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>№ каталога</th>
+      <th>Исполнитель</th>
+      <th>Название</th>
+      <th>Хронометраж</th>
+      <th>Тип</th>
+      <th>Режиссёр</th>
+      <th>Сценарист</th>
+      <th>Композитор</th>
+      <th>Год</th>
+      <th>Youtube</th>
+      <th>RuTube</th>
+      <th>Яндекс</th>
+      <th>VK</th>
+      <th>Дзен</th>
+      <th>UPC</th>
+      <th>Файл</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in video_catalogs %}
+    <tr>
+      <td>{{ item.catalog_number }}</td>
+      <td>{{ item.performer }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.duration }}</td>
+      <td>{{ item.video_type }}</td>
+      <td>{{ item.director }}</td>
+      <td>{{ item.screenwriter }}</td>
+      <td>{{ item.composer }}</td>
+      <td>{{ item.year }}</td>
+      <td>
+        <a href="{{ item.youtube_link }}">Сылка</a>
+        {% if item.youtube_link %} {% else %} - {% endif %}
+      </td>
+      <td>
+        {% if item.rutube_link %}
+        <a href="{{ item.rutube_link }}">Сылка</a>
+        {% else %} - {% endif %}
+      </td>
+      <td>
+        {% if item.yandex_link %}
+        <a href="{{ item.yandex_link }}">Сылка</a>
+        {% else %} - {% endif %}
+      </td>
+      <td>
+        {% if item.vk_link %}
+        <a href="{{ item.vk_link }}">Сылка</a>
+        {% else %} - {% endif %}
+      </td>
+      <td>
+        {% if item.zen_link %}
+        <a href="{{ item.zen_link }}">Сылка</a>
+        {% else %} - {% endif %}
+      </td>
+      <td>{{ item.upc }}</td>
+      <td>
+        {% if item.files %}
+        <a href="{{ item.files.url }}">Файл</a>
+        {% else %} - {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="9">Нет данных.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

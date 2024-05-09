@@ -1,3 +1,85 @@
-.avc-title{
-    margin-bottom: 100px;
+.form-group > form > p {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: auto;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+.form-group > form > p > label {
+  min-width: 200px;
+  text-align: right;
+  margin-right: 0.5rem;
+}
+.avc-title {
+  margin-bottom: 100px;
+}
+.form {
+  display: flex;
+  width: 100%;
+  flex-flow: column nowrap;
+  margin: auto;
+}
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-flow: column nowrap;
+  margin: auto;
+  padding: 0;
+}
+.default-btn {
+  min-width: 200px;
+  display: block;
+  margin-right: 2rem;
+}
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-left: 11rem;
+}
+
+.avc-title {
+  margin-bottom: 100px;
+}
+@media (max-height: 40rem) {
+  .form {
+    flex-flow: row wrap;
+  }
+}
+.reset-btn {
+}
+#removetext {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0b5ed7;
+  border: 0;
+  border-radius: 0.4rem;
+  position: absolute;
+  right: 41rem;
+  top: 9.55rem;
+}
+#id_catalog_number,
+#id_performer,
+#id_title,
+#id_duration,
+#id_video_type,
+#id_director,
+#id_screenwriter,
+#id_composer,
+#id_year,
+#id_youtube_link,
+#id_rutube_link,
+#id_yandex_link,
+#id_vk_link,
+#id_files,
+#id_upc,
+#id_zen_link {
+  width: 20rem;
+  background: #fff;
+  font: inherit;
+  border: 1.5px solid #ffc80d;
+  outline: 0;
+  padding: 0.5rem 0.3rem;
 }
