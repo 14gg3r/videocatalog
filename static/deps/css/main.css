@@ -83,3 +83,15 @@
   outline: 0;
   padding: 0.5rem 0.3rem;
 }
+.buttons-container {
+  margin-bottom: 100px;
+}
+.logo{
+position: absolute;
+top: 19vh;
+left: 20vw;
+}
+.logo-img {
+width: 400px;
+height: auto;
+}
