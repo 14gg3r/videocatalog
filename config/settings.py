@@ -131,6 +131,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Сюда вводить токен бота
-TELEGRAM_API_TOKEN = '6604584539:AAH7o4CyiZyl2VPTo7RQZTgiReJGML2C5AY'
+TELEGRAM_API_TOKEN = '7034539723:AAEXJ2Dnfd5b7WLacW-oI4G6N0VwPP7Hgj8'
 #сюда айди кому отправляет бот
 TELEGRAM_CHAT_ID = ('1371980662')
