@@ -1,27 +1,17 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-<h1>Каталог видео</h1>
-<div class="container">
-  <div class="row row-cols-auto">
-    <div class="col">
-      <a href="{% url 'add_video_catalog' %}" class="btn btn-primary"
-        >Добавить</a
-      >
-    </div>
-    <div class="col">
-      <a href="{% url 'export_to_excel' %}" class="btn btn-primary"
-        >Выгрузить excel</a
-      >
-    </div>
-    <div class="col">
-      <a href="{% url 'send_to_tg' %}" class="btn btn-primary">Отправить</a>
-    </div>
-    <div class="col">
-      <a href="/admin" class="btn btn-primary">Редактировать</a>
-    </div>
+
+<div class="content-container wide">
+
+  <h1 class="h1">Каталог видео</h1>
+
+
+  <div class="search-input-wrapper">
+  <input type="text" class="input search-input js-search-input" placeholder="Поиск">
+    <div class="search-cross js-search-cross">×</div>
   </div>
-</div>
-<table class="table table-striped">
-  <thead class="thead-dark">
+
+  <table class="js-search-table" >
+    <thead >
     <tr>
       <th>№ каталога</th>
       <th>Исполнитель</th>
@@ -40,8 +30,8 @@
       <th>UPC</th>
       <th>Файл</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     {% for item in video_catalogs %}
     <tr>
       <td>{{ item.catalog_number }}</td>
@@ -54,27 +44,27 @@
       <td>{{ item.composer }}</td>
       <td>{{ item.year }}</td>
       <td>
-        <a href="{{ item.youtube_link }}">Сылка</a>
-        {% if item.youtube_link %} {% else %} - {% endif %}
+        <a target="_blank" href="{{ item.youtube_link }}">Ссылка</a>
+        {% if item.youtube_link %} {% else %}  {% endif %}
       </td>
       <td>
         {% if item.rutube_link %}
-        <a href="{{ item.rutube_link }}">Сылка</a>
+        <a target="_blank" href="{{ item.rutube_link }}">Ссылка</a>
         {% else %} - {% endif %}
       </td>
       <td>
         {% if item.yandex_link %}
-        <a href="{{ item.yandex_link }}">Сылка</a>
+        <a target="_blank" href="{{ item.yandex_link }}">Ссылка</a>
         {% else %} - {% endif %}
       </td>
       <td>
         {% if item.vk_link %}
-        <a href="{{ item.vk_link }}">Сылка</a>
+        <a target="_blank" href="{{ item.vk_link }}">Ссылка</a>
         {% else %} - {% endif %}
       </td>
       <td>
         {% if item.zen_link %}
-        <a href="{{ item.zen_link }}">Сылка</a>
+        <a target="_blank" href="{{ item.zen_link }}">Ссылка</a>
         {% else %} - {% endif %}
       </td>
       <td>{{ item.upc }}</td>
@@ -89,6 +79,36 @@
       <td colspan="9">Нет данных.</td>
     </tr>
     {% endfor %}
-  </tbody>
-</table>
+    </tbody>
+  </table>
+
+  <script>
+
+    const items = [
+    {% for item in video_catalogs %}
+    {
+      catalogNumber: '{{ item.catalog_number }}',
+      performer: '{{ item.performer }}',
+      title: '{{ item.title }}',
+      duration: '{{ item.duration }}',
+      video_type: '{{ item.video_type }}',
+      director: '{{ item.director }}',
+      screenwriter: '{{ item.screenwriter }}',
+      composer: '{{ item.composer }}',
+      year: '{{ item.year }}',
+      youtube_link: '{% if item.youtube_link %}{{ item.youtube_link }}{% else %}{% endif %}',
+      rutube_link: '{% if  item.rutube_link %}{{ item.rutube_link }}{% else %}{% endif %}',
+      yandex_link: '{% if  item.yandex_link %}{{ item.yandex_link }}{% else %}{% endif %}',
+      vk_link: '{% if  item.vk_link %}{{ item.vk_link }}{% else %}{% endif %}',
+      zen_link: '{% if  item.zen_link %}{{ item.zen_link }}{% else %}{% endif %}',
+      upc: '{{ item.upc }}',
+      files: '{% if  item.files %}{{ item.files.url }}{% else %}{% endif %}',
+    },
+    {% empty %}
+    {% endfor %}
+    ]
+
+  </script>
+
+</div>
 {% endblock %}
