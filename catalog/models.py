@@ -1,8 +1,12 @@
 from django.db import models
+from django.utils import timezone, dateformat
+
+from users.models import User
 
 
 class VideoCatalog(models.Model):
-    catalog_number = models.CharField(max_length=30, verbose_name="№ каталога")
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
+    created_timestamp = models.DateTimeField(default=dateformat.format(timezone.localtime(timezone.now()), 'Y-m-d H:i'), verbose_name='Дата добавления')
     performer = models.CharField(max_length=30, verbose_name="Исполнитель")
     title = models.CharField(max_length=30, verbose_name="Название")
     duration = models.DurationField(verbose_name="Хронометраж", blank=True, null=True)
@@ -25,3 +29,6 @@ class VideoCatalog(models.Model):
     class Meta:
         verbose_name = "Видеокаталог"
         verbose_name_plural = "Видеокаталоги"
+
+    def display_id(self):
+        return f'{self.id:04}'

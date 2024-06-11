@@ -77,10 +77,37 @@ document.querySelector('.js-search-input')?.addEventListener('input', function (
             performer,
             title,
             upc,
-
-
+            catalogNumber,
+            duration,
+            video_type,
+            director,
+            screenwriter,
+            composer,
+            year,
+            youtube_link,
+            rutube_link,
+            yandex_link,
+            vk_link,
+            zen_link,
+            files,
         } = item
-        return title.toLowerCase().includes(value.toLowerCase()) || performer.toLowerCase().includes(value.toLowerCase()) || upc.toLowerCase().includes(value.toLowerCase())
+        const cleanedValue = value.trim().toLowerCase()
+        return files.toLowerCase().includes(cleanedValue)
+            || performer.toLowerCase().includes(cleanedValue)
+            || title.toLowerCase().includes(cleanedValue)
+            || upc.toLowerCase().includes(cleanedValue)
+            || catalogNumber.toLowerCase().includes(cleanedValue)
+            || duration.toLowerCase().includes(cleanedValue)
+            || video_type.toLowerCase().includes(cleanedValue)
+            || director.toLowerCase().includes(cleanedValue)
+            || screenwriter.toLowerCase().includes(cleanedValue)
+            || composer.toLowerCase().includes(cleanedValue)
+            || year.toLowerCase().includes(cleanedValue)
+            || youtube_link.toLowerCase().includes(cleanedValue)
+            || rutube_link.toLowerCase().includes(cleanedValue)
+            || yandex_link.toLowerCase().includes(cleanedValue)
+            || vk_link.toLowerCase().includes(cleanedValue)
+            || zen_link.toLowerCase().includes(cleanedValue)
     });
 
 
@@ -106,9 +133,64 @@ const inputWrappers = document.querySelectorAll('form p')
 inputWrappers.forEach(wrapper => {
     wrapper.innerHTML = wrapper.innerHTML + '<span class="input-cross js-input-cross">×</span>'
 
-     wrapper.querySelector('.js-input-cross').addEventListener('click', (e) => {
-         e.target.parentNode.querySelector('input').value = ''
-     });
+    wrapper.querySelector('.js-input-cross').addEventListener('click', (e) => {
+        e.target.parentNode.querySelector('input').value = ''
+    });
 
 })
 
+function loadFromLocalstorage(form) {
+    const inputs = form.querySelectorAll('input');
+
+    [...inputs].forEach(input => {
+        const value = localStorage.getItem(input.id);
+        if (value) {
+            input.value = JSON.parse(value);
+        }
+    })
+}
+
+function saveToLocalstorage(form) {
+    const inputs = form.querySelectorAll('input');
+
+    [...inputs].forEach(input => {
+        if (input.type === 'text' || input.type === 'number' || input.type === 'url') {
+
+            input.addEventListener('input', (e) => {
+                localStorage.setItem(input.id, JSON.stringify(input.value));
+            })
+        }
+    })
+}
+
+function cleanLocalstorage(form) {
+    const inputs = form.querySelectorAll('input');
+
+    [...inputs].forEach(input => {
+        if (input.type === 'text' || input.type === 'number' || input.type === 'url') {
+            localStorage.setItem(input.id, null);
+        }
+    })
+}
+
+function initSaveToLocalstorageForm(form) {
+    if (!form) {
+        return null
+    }
+
+    loadFromLocalstorage(form)
+    saveToLocalstorage(form)
+
+
+    form.addEventListener('submit', (e) => {
+        cleanLocalstorage(form)
+    })
+}
+
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    const form = document.querySelector('.js-adding-form');
+
+    initSaveToLocalstorageForm(form)
+
+});

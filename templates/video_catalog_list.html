@@ -14,6 +14,8 @@
     <thead >
     <tr>
       <th>№ каталога</th>
+      <th>Менеджер</th>
+      <th>Дата добавления</th>
       <th>Исполнитель</th>
       <th>Название</th>
       <th>Хронометраж</th>
@@ -34,7 +36,9 @@
     <tbody>
     {% for item in video_catalogs %}
     <tr>
-      <td>{{ item.catalog_number }}</td>
+      <td>vj{{ item.display_id }}</td>
+      <td>{{ item.user.username }}</td>
+      <td>{{ item.created_timestamp }}</td>
       <td>{{ item.performer }}</td>
       <td>{{ item.title }}</td>
       <td>{{ item.duration }}</td>

@@ -8,11 +8,23 @@
     <link rel="stylesheet" href="{% static 'deps/css/main.css'%}">
 </head>
 <body>
+
+{% if not user.is_authenticated %}
+<div class="user-auth-cont">
+    <a href="{% url 'user:login' %}" class="login-btn">Войти</a>
+</div>
+{% else %}
+<div class="user-auth-cont">
+    <p class="user-name-txt">{{user.username}}</p>
+    <a href="{% url 'user:logout' %}" class="pop-up-logout">Выйти</a>
+</div>
+{% endif %}
+
 <div class="side-menu">
     <a href="/" class="logo-img">
         <img src="{% static 'deps/img/logo.jpg' %}" alt="logo">
     </a>
-    <a href="{% url 'add_video_catalog' %}" class="side-menu-link">добавить</a>
+    <a href="{% if user.is_authenticated %}{% url 'add_video_catalog' %}{% else %}{% url 'user:login' %}{% endif %}" class="side-menu-link">добавить</a>
     <a href="/" class="side-menu-link">каталог видео</a>
     <a href="{% url 'export_to_excel' %}" class="side-menu-link">выгрузить excel</a>
     <a href="{% url 'send_to_tg' %}" class="side-menu-link">отправить</a>
